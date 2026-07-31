@@ -1,0 +1,34 @@
+# Runtime e dados locais
+cache/
+logs/
+crashes/
+txData/
+*.log
+
+# Segredos
+config/secrets.cfg
+.env
+.env.*
+!.env.example
+
+# Base de dados e backups
+*.sql.gz
+*.sql.zip
+backups/
+
+# Dependências instaladas pela recipe
+resources/[cfx-default]/
+resources/[core]/
+resources/[esx_addons]/
+resources/[standalone]/
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporários
+tmp/
+.temp/
+*.tmp
