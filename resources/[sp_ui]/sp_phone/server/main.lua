@@ -245,8 +245,8 @@ end)
 
 ESX.RegisterServerCallback('sp_phone:server:addContact', function(source, cb, displayName, phoneNumber)
     local xPlayer = ESX.GetPlayerFromId(source)
-    if not xPlayer then
-        return callbackError(cb, 'Jogador inválido.')
+    if not xPlayer or not hasPhone(xPlayer) then
+        return callbackError(cb, 'Não tens um telemóvel.')
     end
 
     displayName = cleanText(displayName):sub(1, 64)
@@ -272,8 +272,8 @@ end)
 
 ESX.RegisterServerCallback('sp_phone:server:deleteContact', function(source, cb, contactId)
     local xPlayer = ESX.GetPlayerFromId(source)
-    if not xPlayer then
-        return callbackError(cb, 'Jogador inválido.')
+    if not xPlayer or not hasPhone(xPlayer) then
+        return callbackError(cb, 'Não tens um telemóvel.')
     end
 
     MySQL.update.await(
@@ -286,8 +286,11 @@ end)
 ESX.RegisterServerCallback('sp_phone:server:sendService', function(source, cb, serviceKey, body)
     local xPlayer = ESX.GetPlayerFromId(source)
     local service = Config.Services[tostring(serviceKey or '')]
-    if not xPlayer or not service then
+    if not service then
         return callbackError(cb, 'Serviço inválido.')
+    end
+    if not xPlayer or not hasPhone(xPlayer) then
+        return callbackError(cb, 'Não tens um telemóvel.')
     end
 
     body = cleanText(body)
@@ -332,8 +335,9 @@ ESX.RegisterServerCallback('sp_phone:server:startCall', function(source, cb, tar
     local callerNumber = ensurePhoneNumber(source, xPlayer)
     targetNumber = cleanNumber(targetNumber)
     local targetSource = sourceByNumber[targetNumber]
+    local targetPlayer = targetSource and ESX.GetPlayerFromId(targetSource) or nil
 
-    if not targetSource or GetPlayerPing(targetSource) <= 0 then
+    if not targetSource or not targetPlayer or not hasPhone(targetPlayer) or GetPlayerPing(targetSource) <= 0 then
         MySQL.insert.await([[
             INSERT INTO sp_phone_calls (caller_number, receiver_number, status)
             VALUES (?, ?, 'missed')
