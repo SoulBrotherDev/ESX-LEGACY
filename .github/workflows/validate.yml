@@ -19,8 +19,24 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install Lua parser
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4
+
       - name: Validate repository
         run: python tools/validate.py
+
+      - name: Validate Lua syntax
+        shell: bash
+        run: |
+          while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            luac5.4 -p "$file"
+          done < <(find resources -type f -name '*.lua' -print0)
+
+      - name: Validate JavaScript syntax
+        run: node --check 'resources/[sp_ui]/sp_phone/html/app.js'
 
       - name: Check whitespace
         run: git diff --check
