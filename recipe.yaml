@@ -1,9 +1,9 @@
 $engine: 3
 $onesync: on
 name: Soul Project ESX Legacy
-version: 0.1.0
+version: 0.2.0
 author: Soul Project
-description: Base modular PT-PT para FiveM com ESX Legacy, Steam-only e estrutura sp_*.
+description: Base modular PT-PT para FiveM com ESX Legacy, Steam-only, rádio, telefone e empregos essenciais.
 
 tasks:
   - action: download_github
@@ -75,7 +75,7 @@ tasks:
   - action: connect_database
 
   - action: download_github
-    src: https://github.com/esx-framework/esx-core
+    src: https://github.com/esx-framework/esx_core
     ref: main
     dest: ./tmp/esx-core
 
@@ -85,10 +85,62 @@ tasks:
   - action: query_database
     file: ./tmp/sp-base/database/000_sp_base.sql
 
+  - action: query_database
+    file: ./tmp/sp-base/database/005_sp_essential_items.sql
+
+  - action: query_database
+    file: ./tmp/sp-base/database/010_sp_phone.sql
+
+  - action: query_database
+    file: ./tmp/sp-base/database/015_sp_starterpack.sql
+
   - action: download_github
     src: https://github.com/esx-framework/ESX-Legacy-Addons
     ref: main
     dest: ./tmp/esx-addons
+
+  # SQL estrutural dos addons oficiais ESX.
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_addonaccount/esx_addonaccount.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_addoninventory/esx_addoninventory.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_datastore/esx_datastore.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_society/esx_society.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_billing/esx_billing.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_license/esx_license.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_banking/banking.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_jobs/esx_jobs.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_policejob/esx_policejob.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_ambulancejob/esx_ambulancejob.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_mechanicjob/esx_mechanicjob.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_taxijob/esx_taxijob.sql
+
+  - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_vehicleshop/esx_vehicleshop.sql
+
+  - action: query_database
+    file: ./tmp/sp-base/database/020_sp_jobs_pt.sql
 
   - action: move_path
     src: ./tmp/esx-core/[core]
