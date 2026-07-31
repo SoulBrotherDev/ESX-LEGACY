@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Project Phone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="phone" class="phone hidden" aria-hidden="true">
+        <header class="phone-header">
+            <div>
+                <span class="eyebrow">SOUL NETWORK</span>
+                <strong id="own-number">SEM REDE</strong>
+            </div>
+            <button id="close" class="icon-button" type="button" aria-label="Fechar">×</button>
+        </header>
+
+        <div id="toast" class="toast hidden"></div>
+
+        <nav class="tabs" aria-label="Aplicações">
+            <button class="tab active" data-view="messages" type="button">Mensagens</button>
+            <button class="tab" data-view="contacts" type="button">Contactos</button>
+            <button class="tab" data-view="services" type="button">Serviços</button>
+            <button class="tab" data-view="calls" type="button">Chamadas</button>
+        </nav>
+
+        <section id="view-messages" class="view active">
+            <div class="message-layout">
+                <aside>
+                    <button id="new-message" class="primary full" type="button">Nova mensagem</button>
+                    <div id="conversation-list" class="list"></div>
+                </aside>
+                <article class="conversation">
+                    <label>Número
+                        <input id="message-number" inputmode="tel" maxlength="20" placeholder="5550000">
+                    </label>
+                    <div id="message-thread" class="message-thread empty">Seleciona uma conversa.</div>
+                    <form id="message-form" class="composer">
+                        <textarea id="message-body" maxlength="500" placeholder="Escreve uma mensagem"></textarea>
+                        <button class="primary" type="submit">Enviar</button>
+                    </form>
+                </article>
+            </div>
+        </section>
+
+        <section id="view-contacts" class="view">
+            <form id="contact-form" class="stack card">
+                <h2>Novo contacto</h2>
+                <input id="contact-name" maxlength="64" placeholder="Nome">
+                <input id="contact-number" inputmode="tel" maxlength="20" placeholder="Número">
+                <button class="primary" type="submit">Guardar contacto</button>
+            </form>
+            <div id="contact-list" class="list contact-list"></div>
+        </section>
+
+        <section id="view-services" class="view">
+            <div id="service-list" class="service-grid"></div>
+            <textarea id="service-body" maxlength="500" placeholder="Descreve o pedido e indica referências úteis"></textarea>
+            <p class="hint">A localização atual é anexada automaticamente ao pedido.</p>
+        </section>
+
+        <section id="view-calls" class="view">
+            <div id="call-history" class="list"></div>
+        </section>
+
+        <footer class="phone-footer">
+            <span id="network-status">ESX · PMA VOICE</span>
+            <span id="clock">00:00</span>
+        </footer>
+
+        <div id="call-overlay" class="call-overlay hidden">
+            <span id="call-state">A chamar</span>
+            <strong id="call-number">0000000</strong>
+            <div class="call-actions">
+                <button id="answer-call" class="accept hidden" type="button">Atender</button>
+                <button id="decline-call" class="danger hidden" type="button">Rejeitar</button>
+                <button id="hangup-call" class="danger hidden" type="button">Desligar</button>
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
