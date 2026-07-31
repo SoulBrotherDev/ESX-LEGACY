@@ -140,6 +140,9 @@ tasks:
     file: ./tmp/esx-addons/[esx_addons]/esx_vehicleshop/esx_vehicleshop.sql
 
   - action: query_database
+    file: ./tmp/esx-addons/[esx_addons]/esx_garage/esx_garage.sql
+
+  - action: query_database
     file: ./tmp/sp-base/database/020_sp_jobs_pt.sql
 
   - action: move_path
