@@ -1,0 +1,120 @@
+$engine: 3
+$onesync: on
+name: Soul Project ESX Legacy
+version: 0.1.0
+author: Soul Project
+description: Base modular PT-PT para FiveM com ESX Legacy, Steam-only e estrutura sp_*.
+
+tasks:
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    ref: master
+    subpath: resources
+    dest: ./resources/[cfx-default]
+
+  - action: remove_path
+    path: ./resources/[cfx-default]/[gameplay]/chat
+
+  - action: download_github
+    src: https://github.com/SoulBrotherDev/ESX-LEGACY
+    ref: main
+    dest: ./tmp/sp-base
+
+  - action: copy_path
+    src: ./tmp/sp-base/server.cfg
+    dest: ./server.cfg
+
+  - action: copy_path
+    src: ./tmp/sp-base/config
+    dest: ./config
+
+  - action: copy_path
+    src: ./tmp/sp-base/docs
+    dest: ./docs
+
+  - action: copy_path
+    src: ./tmp/sp-base/README.md
+    dest: ./README.md
+
+  - action: copy_path
+    src: ./tmp/sp-base/config/secrets.example.cfg
+    dest: ./config/secrets.cfg
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_core]
+    dest: ./resources/[sp_core]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_custom]
+    dest: ./resources/[sp_custom]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_jobs]
+    dest: ./resources/[sp_jobs]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_illegal]
+    dest: ./resources/[sp_illegal]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_maps]
+    dest: ./resources/[sp_maps]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_ui]
+    dest: ./resources/[sp_ui]
+
+  - action: copy_path
+    src: ./tmp/sp-base/resources/[sp_vehicles]
+    dest: ./resources/[sp_vehicles]
+
+  - action: replace_string
+    mode: all_vars
+    file: ./server.cfg
+
+  - action: connect_database
+
+  - action: download_github
+    src: https://github.com/esx-framework/esx-core
+    ref: main
+    dest: ./tmp/esx-core
+
+  - action: query_database
+    file: ./tmp/esx-core/[SQL]/legacy.sql
+
+  - action: query_database
+    file: ./tmp/sp-base/database/000_sp_base.sql
+
+  - action: download_github
+    src: https://github.com/esx-framework/ESX-Legacy-Addons
+    ref: main
+    dest: ./tmp/esx-addons
+
+  - action: move_path
+    src: ./tmp/esx-core/[core]
+    dest: ./resources/[core]
+
+  - action: move_path
+    src: ./tmp/esx-addons/[esx_addons]
+    dest: ./resources/[esx_addons]
+
+  - action: download_github
+    src: https://github.com/Bob74/bob74_ipl
+    ref: master
+    dest: ./resources/[standalone]/bob74_ipl
+
+  - action: download_github
+    src: https://github.com/AvarianKnight/pma-voice
+    ref: main
+    dest: ./resources/[standalone]/pma-voice
+
+  - action: download_file
+    path: ./tmp/oxmysql.zip
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+
+  - action: unzip
+    src: ./tmp/oxmysql.zip
+    dest: ./resources/[standalone]
+
+  - action: remove_path
+    path: ./tmp
