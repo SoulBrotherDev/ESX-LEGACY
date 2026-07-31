@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+VALIDATOR_PATH = Path(__file__).resolve()
 
 REQUIRED = [
     "README.md",
@@ -63,7 +64,7 @@ def main() -> int:
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
             continue
-        if path.name == "secrets.example.cfg":
+        if path.resolve() == VALIDATOR_PATH or path.name == "secrets.example.cfg":
             continue
         try:
             content = path.read_text(encoding="utf-8")
