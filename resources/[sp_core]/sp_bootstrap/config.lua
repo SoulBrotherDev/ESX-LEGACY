@@ -7,7 +7,12 @@ Config.HealthCommand = 'sp_health'
 
 Config.RequiredResources = {
     'oxmysql',
-    'es_extended'
+    'pma-voice',
+    'es_extended',
+    'sp_bootstrap',
+    'sp_radio',
+    'sp_starterpack',
+    'sp_phone'
 }
 
 Config.SteamRequiredMessage = table.concat({
