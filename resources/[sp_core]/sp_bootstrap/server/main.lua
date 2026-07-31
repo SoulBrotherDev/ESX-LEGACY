@@ -84,7 +84,7 @@ AddEventHandler('onResourceStart', function(resourceName)
     end
 
     CreateThread(function()
-        Wait(1000)
+        Wait(5000)
         local health = collectHealth()
         SPLogger.Log(health.ok and 'info' or 'error', 'Bootstrap inicializado', health)
     end)
